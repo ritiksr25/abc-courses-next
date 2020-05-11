@@ -156,6 +156,12 @@ const Layout = (props) => (
         border: 0;
       }
 
+      .error-alert {
+        color: red;
+        font-weight: 800;
+        font-size: 20px;
+      }
+
       @media (max-width: 424px) {
         .main__title {
           font-size: 24px;

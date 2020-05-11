@@ -7,18 +7,28 @@ const Course = (props) => {
   return (
     <Layout>
       <>
-        <CourseCard course={props.course} />
+        {props.course ? (
+          <CourseCard course={props.course} />
+        ) : (
+          <div className="error-alert"><p>Oops! Something went wrong :(</p></div>
+        )}
       </>
     </Layout>
   );
 };
 
 Course.getInitialProps = async (context) => {
-  const res = await axios.get(
-    `${FETCH_COURSE_API}/${context.req.url.split("/")[2]}`
-  );
+  let course;
+  try {
+    const res = await axios.get(
+      `${FETCH_COURSE_API}/${context.req.url.split("/")[2]}`
+    );
+    course = res.data.data.courses;
+  } catch (err) {
+    console.log(err);
+  }
   return {
-    course: res.data.data.courses,
+    course,
   };
 };
 
